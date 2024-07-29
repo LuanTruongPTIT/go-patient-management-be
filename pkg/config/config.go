@@ -21,6 +21,7 @@ func init() {
 	Config.SetEnvPrefix(configPrefix)
 	Config.AutomaticEnv()
 	configLoadFile()
+	configLoadValues()
 }
 func configLoadFile() {
 	err := Config.ReadInConfig()
@@ -29,4 +30,9 @@ func configLoadFile() {
 			err.Error() + "\",\"service\":\"" + Config.GetString("SERVER_NAME") +
 			"\",\"time\":" + fmt.Sprint(time.Now().Format(time.RFC3339Nano)) + "\"}")
 	}
+}
+func configLoadValues() {
+	Config.SetDefault("SERVER_NAME", DefaultNameService)
+	Config.SetDefault("SERVER_IP", DefaultIpService)
+	Config.SetDefault("SERVER_PORT", DefaultPortService)
 }
